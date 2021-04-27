@@ -1,0 +1,4 @@
+#
+# vm_deploy.yaml
+# Ansible Playbook for deploying VMs based on data from NetBox. 
+#
