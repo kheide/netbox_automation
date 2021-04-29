@@ -6,8 +6,18 @@ import sys
 import pynetbox 
 import json 
 
+NETBOX_TOKEN=''
+NETBOX_URL=''
+
 def gather_from_netbox(vm_name): 
-  return 
+  
+  return_data = {}
+
+  nb = pynetbox.api(NETBOX_URL, token=NETBOX_TOKEN)
+  data = nb.virtualization.virtual_machines.get(name=vm_name)
+
+
+  return return_data
 
 
 if __name__ = "__main__":
