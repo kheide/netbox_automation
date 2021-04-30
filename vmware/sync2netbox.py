@@ -63,10 +63,12 @@ if __name__ == '__main__':
         sys.exit()
 
     for vm in vms:
+        print("{}: Converting data...".format(vm.name))
         vm_data = convert_to_netbox(vm)
         if not vm_data:           
             print("{}: Unable to convert data for VM.".format(vm.name))
             continue
 
+        print("{}: Deploying VM to NetBox...".format(vm.name))
         create_vm_in_netbox(vm_data)
         
