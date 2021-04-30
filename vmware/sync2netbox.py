@@ -45,17 +45,17 @@ def convert_to_netbox(data):
 
     return netbox_data
 
-def create_vm_in_netbox(data): 
+def create_vm_in_netbox(data, netbox): 
 
-    nb = pynetbox.api(NETBOX_URL, token=NETBOX_TOKEN)
+    
 
-    return_data = nb.virtualization.virtual_machines.create(data)
+    return_data = netbox.virtualization.virtual_machines.create(data)
 
     return return_data
 
 
 if __name__ == '__main__':
-
+    nb = pynetbox.api(NETBOX_URL, token=NETBOX_TOKEN)
     vms = get_virtual_machines()
     
     if not vms:
@@ -70,5 +70,5 @@ if __name__ == '__main__':
             continue
 
         print("{}: Deploying VM to NetBox...".format(vm.name))
-        create_vm_in_netbox(vm_data)
+        create_vm_in_netbox(vm_data, nb)
         
