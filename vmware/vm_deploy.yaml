@@ -2,3 +2,12 @@
 # vm_deploy.yaml
 # Ansible Playbook for deploying VMs based on data from NetBox. 
 #
+---
+- name: Deploy Virtual Machine from NetBox datasource
+  hosts: localhost
+  gather_facts: no
+  tasks:
+  - name: Gather VM data from NetBox
+    command: ./gather_vm_info.py "{{ vm_name }}"
+    become: yes
+    
