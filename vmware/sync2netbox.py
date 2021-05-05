@@ -47,7 +47,12 @@ def convert_to_netbox(data):
 
 def create_vm_in_netbox(data, netbox): 
 
+    # First lets check if this badboy already exists!
+    does_exist = netbox.virtualization.virtual_machines.get(name=data.name)
     
+    if does_exist:
+        print('{}: VM already exists. Skipping!'.format(data.name))
+        return False
 
     return_data = netbox.virtualization.virtual_machines.create(data)
 
@@ -63,12 +68,12 @@ if __name__ == '__main__':
         sys.exit()
 
     for vm in vms:
-        print("{}: Converting data...".format(vm.name))
+        print('{}: Converting data...'.format(vm.name))
         vm_data = convert_to_netbox(vm)
         if not vm_data:           
-            print("{}: Unable to convert data for VM.".format(vm.name))
+            print('{}: Unable to convert data for VM.'.format(vm.name))
             continue
 
-        print("{}: Deploying VM to NetBox...".format(vm.name))
+        print('{}: Deploying VM to NetBox...'.format(vm.name))
         create_vm_in_netbox(vm_data, nb)
         
